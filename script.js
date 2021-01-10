@@ -1,68 +1,37 @@
-// VARRIABLES
-var ImgName, ImgUrl;
-var flie = [];
-var reader; 
-// confiquration
+// Your web app's Firebase configuration
 var firebaseConfig = {
     apiKey: "AIzaSyBnpaP-C2gRcdFXw3wX7l8Mw5KD29v4wNs",
     authDomain: "filemanagementsystem-74728.firebaseapp.com",
+    databaseURL: "https://filemanagementsystem-74728-default-rtdb.firebaseio.com",
     projectId: "filemanagementsystem-74728",
     storageBucket: "filemanagementsystem-74728.appspot.com",
     messagingSenderId: "86600871169",
-    appId: "1:86600871169:web:70a621d9dd659352967f00"
+    appId: "1:86600871169:web:9be2a8e21b0a77dc967f00"
   };
-
-    // Initialize Firebase
+  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-    //   firebase.analytics();
-    //   selection process 
- document.getElementById("select").onclick = function(e){
-    
-    var input = document.createElement('input');
-    input.type= 'file';
-    
-    
-   
+  console.log(firebase)
 
-    input.onchange = e =>{
-        files = e.target.files;
-        reader  = new FileReader();
-        reader.onload = function(){
-            document.getElementById("myimg").src = reader.result;
-        }
-        reader.readAsDataURL( files[0]);
-    } 
-    input.click();
-}
-    // UPLOAD PROCESS
-    document.getElementById('upload').onclick = function(){
-        ImgName = document.getElementById('namebox').value;
-       
-        var uploadTask = firebase.storage().ref('Images/'+ ImgName+".png").put(files[0]);
-        uploadTask.on('state_changed', function(snapshot){
-        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        document.getElementById('UpProgress').innerHTML = 'upload'+progress+'%';
-        },
+  function uploadImage(){
+      const ref = firebase.storage().ref()
 
-        // error handling
-        function(error){
-            alert('error in saving the image');
-        },  
+      const file = document.querySelector("#photo").files[0]
 
-        // submiting image to the database 
-        function(){
-            uploadTask.snapshot.ref.getDownloadURL().then(function(url){
-             ImgUrl = url;
+      const name= new Date () + '–' + file.name
+      
+      const metadata = {
+          contentType:file.type
+      }
 
+      const task = ref.child(name).put(file,metadata)
 
-                firebase.database().ref('Pictures/'+ImgName).set({
-                    Name: ImgName,
-                    Link: ImgUrl,
-        }); 
-        alert('image uploaded successfully');
-            }  
-            );
-
-        });  
-        }
-       
+      task
+      .then(snapshot => snapshot.ref.getDownloadURL())
+      .then(url => {
+          console.log(url)
+          alert("Image Upload Successful")
+          const image = document.querySelector('#image')
+          image.src = url       
+        })
+  }
+var button = ('#submit')
