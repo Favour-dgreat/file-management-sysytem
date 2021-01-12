@@ -4,18 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firebase Storage Example</title>
+    <link rel="stylesheet" href="./styles//contributor.css">
 </head>
-<body style="
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  ">
-    <img id="myimg">  <label for="" id="UpProgress"></label><br/> <br/>
-    <input type="file" id="photo">
-    <button id="retrive"> Retrieve Image</button>
-    <img id="image"/>
-    <button id = "submit" onclick = "uploadImage()">Upload Image</button>
-</body>
+  <body>
+
+      <div class="container">
+          
+      <img id="myimg">
+      <label for="" id="UpProgress"></label><br/> <br/>
+        <form >
+        <div>
+          <label for="photo">logo</label>
+          <input type="file" id="photo" style="display: none;">
+
+          <small class="msg"></small>
+        </div>
+
+          <div>
+            <button class="upload">Upload</button>
+           <button class="retrieve">Retrieve</button>
+          </div>
+          <br>
+          <div>
+            <img alt="img should appear here "/>
+          </div>
+        </form>
+
+      </div>
+
+  </body>
+       
+
+        <!--buttons-->
+   
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-storage.js"></script>
@@ -24,4 +45,5 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
 <script src="./filesystem.js"></script>
+<script src="./contribute.js"></script>
 </html>
